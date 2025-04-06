@@ -1,0 +1,87 @@
+#Posible solucion al ejericio 60 de https://retosdeprogramacion.com/ejercicios/
+#Crea un programa que simule el comportamiento del sombrero selccionador del
+# * universo mágico de Harry Potter.
+# * - De ser posible realizará 5 preguntas (como mínimo) a través de la terminal.
+# * - Cada pregunta tendrá 4 respuestas posibles (también a selecciona una a través de terminal).
+# * - En función de las respuestas a las 5 preguntas deberás diseñar un algoritmo que
+# *   coloque al alumno en una de las 4 casas de Hogwarts:
+# *   (Gryffindor, Slytherin , Hufflepuff y Ravenclaw)
+# * - Ten en cuenta los rasgos de cada casa para hacer las preguntas
+# *   y crear el algoritmo seleccionador:
+# *   Por ejemplo, en Slytherin se premia la ambición y la astucia.
+
+#Gryffindor -> Valor
+#Slytherin -> ambicion
+#Hufflepuff -> lealtad
+#Ravenclaw -> ambicion
+
+import random
+
+def sombrero_seleccionador():
+    
+    #Definimos las variables
+    casas = {
+        "Gryffindor":0,
+        "Ravenclaw":0,
+        "Hufflepuf":0,
+        "Slytherin":0
+    }
+    
+     #Presentamos el juego
+    print("BIENVENIDO AL PROCESO DE SELECCION DEL SOMBRERO SELECCIONADOR DE HARRY POTTER!!!!")
+    print("Póngase cómodo y responda a las siguientes preguntas introduciendo el número de la respuesta del cuestionario")
+    
+    preguntas = [
+        ("Si te enfrentas a un desafio dificil, ¿Cómo reaccionarias?",[
+            "1. Lo enfrento de inmediato, con valentia",
+            "2. Pienso en una estrategia antes de actuar ",
+            "3. Busco aliados y recursos para solucionarlo ",
+            "4. Hago lo necesario para salir beneficiado"
+        ],["Gryffindor", "Ravenclaw", "Hufflepuf", "Slytherin"]),
+        ("¿Qué cualidad valoras más en tus amigos?",[
+            "1.Lealtad inquebrantable",
+            "2.Inteligencia y curiosidad",
+            "3.Valentía y espíritu aventurero",
+            "4.Ambicion y determinacion"
+        ],["Hufflepuf", "Ravenclaw", "Gryffindor", "Slytherin"]),
+        ("Si pudieras dominar un tipo de magia ¿Cual seria?", [
+            "1. Hechizos de combate para proteger a otros",
+            "2. Encantamientos y magia avanzada",
+            "3. Magia curativa y de apollo",
+            "4. Artes oscuras y magia poderosa"
+        ],["Gryffindor", "Ravenclaw", "Hufflepuf", "Slytherin"]),
+        ("El ministerio de magia te ofrece un puesto importante ¿Qué eliges?",[
+            "1. Jefe de autores protegiendo el mundo magico",
+            "2. Investigador de misterios magicos y conocimientos antiguos",
+            "3. Director de San Mungo. Ayudando a los enfermos",
+            "4. Ministro de magia con el poder de cambiar las reglas"
+        ], ["Gryffindor", "Ravenclaw", "Hufflepuf", "Slytherin"]),
+        ("Tienes que cruzar un bosque oscuro y peligroso. ¿Qué haces?",[
+            "1. Entro sin miedo con la varita lista",
+            "2. Consulto mapas y busco la mejor ruta",
+            "3. Voy con amigos y nos apollamos mutuamente",
+            "4. Encuentro una forma de evitarlo y hacer que otro cruce por mi"
+        ], ["Gryffindor", "Ravenclaw", "Hufflepuf", "Slytherin"])
+    ]
+    
+    #Exponemos las perguntas
+    for i, (pregunta, opciones, destinos) in enumerate(preguntas, start=1):
+        print(f"\nPREGUNTA Nº{i}: {pregunta}")
+        for j, opcion in enumerate(opciones):
+            print(f"{opcion}")
+        
+        #Validamos la respuesta    
+        while True:
+            respuesta = input("Escoja una respuesta 1, 2, 3 o 4:-> ")
+            if respuesta in ("1", "2", "3", "4"):
+                casas[destinos[int(respuesta) - 1]] += 1
+                break
+                
+            else:
+                print("Elija una respuesta entre las opciones propuestas '1, 2, 3, 4' ")
+                
+    resultados = [casa for casa, valor in casas.items() if valor == max(casas.values())]
+    if len(resultados) == 1:
+        return f"Te ha tocado... {''.join(resultados).upper()}!!!!! Disfruta de tu estancia en Hoggwarts"
+    else:
+        return f"Esta dificil la cosa.... {''.join(random.choice(resultados)).upper()}!!!! Disfruta de tu estancia en Hoggwarts"
